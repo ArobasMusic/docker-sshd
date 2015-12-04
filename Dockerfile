@@ -5,14 +5,13 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update
 RUN DEBIAN_FRONTEND=noninteractive apt-get upgrade -y
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y openssh-server
 # Configure SSH service
+ENV NOTVISIBLE "in users profile"
 ENV PASSWORD="supercalifragilisticexpialidocious"
+RUN echo "export VISIBLE=now" >> /etc/profile
 RUN echo "session optional pam_loginuid.so" >> /etc/pam.d/sshd
 RUN echo "PermitRootLogin without-password" >> /etc/ssh/sshd_config
 RUN mkdir /var/run/sshd
 RUN mkdir /srv/depository
-RUN echo "root:${PASSWORD}" | chpasswd
-RUN echo "export VISIBLE=now" >> /etc/profile
-ENV NOTVISIBLE "in users profile"
 # Configure container
 COPY sshd /usr/local/bin/
 EXPOSE 22
