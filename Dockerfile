@@ -11,9 +11,7 @@ RUN echo "export VISIBLE=now" >> /etc/profile
 RUN echo "session optional pam_loginuid.so" >> /etc/pam.d/sshd
 RUN echo "PermitRootLogin without-password" >> /etc/ssh/sshd_config
 RUN mkdir /var/run/sshd
-RUN mkdir /srv/depository
 # Configure container
 COPY sshd /usr/local/bin/
 EXPOSE 22
-VOLUME /srv/depository
 CMD ["sshd"]
