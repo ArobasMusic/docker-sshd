@@ -1,0 +1,7 @@
+#!/bin/sh
+if [ ! -f /initialized ];
+    then
+    echo "root:${PASSWORD}" | chpasswd
+fi
+touch /initialized
+exec /usr/sbin/sshd -D
